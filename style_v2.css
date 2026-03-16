@@ -43,7 +43,7 @@ body::before {
     background-repeat: no-repeat;
     background-attachment: fixed;
     z-index: -1;
-    filter: brightness(0.8) contrast(1.1);
+    filter: brightness(1) contrast(1);
 }
 
 .cursor-glow {
@@ -192,12 +192,19 @@ nav {
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    color: #ffffff;
-    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(135deg, #ffffff 0%, #b5c18e 100%);
+    background: linear-gradient(to right, #ffffff, var(--primary-color), #ffffff);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+    filter: drop-shadow(0 0 20px rgba(133, 152, 132, 0.3));
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
 }
 
 .hero-content p {
@@ -216,30 +223,53 @@ nav {
 }
 
 .btn {
-    padding: 1rem 2rem;
-    border-radius: 8px;
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: rgba(255, 255, 255, 0.15);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease-out;
+    z-index: -1;
+    border-radius: 30px;
+}
+
+.btn:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 .btn.primary {
-    background: var(--primary-color);
-    color: white;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--bg-color);
+    box-shadow: 0 4px 15px rgba(181, 193, 142, 0.3);
+    border: none;
 }
 
 .btn.secondary {
-    border: 1px solid var(--glass-border);
-    color: white;
-    background: var(--glass-bg);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    background: transparent;
 }
 
 .btn:hover {
     transform: translateY(-5px);
-}
-
-.btn.primary:hover {
-    box-shadow: 0 10px 30px rgba(181, 193, 142, 0.2);
+    box-shadow: 0 10px 30px rgba(181, 193, 142, 0.4);
 }
 
 /* Obsolete hero image classes removed as image is now background */
@@ -349,15 +379,18 @@ h2 {
 
 .skill-category {
     padding: 2rem;
-    background: var(--glass-bg);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
-    transition: transform 0.3s;
+    transition: all 0.4s ease;
 }
 
 .skill-category:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
     border-color: var(--primary-color);
+    box-shadow: 0 10px 30px rgba(181, 193, 142, 0.15);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
 }
 
 .skill-category h3 {
@@ -396,17 +429,19 @@ h2 {
 }
 
 .project-card {
-    background: var(--glass-bg);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary-color);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(181, 193, 142, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(181, 193, 142, 0.15);
 }
 
 .project-info {
