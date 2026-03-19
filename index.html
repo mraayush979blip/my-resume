@@ -6,19 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aayush Sharma | Portfolio</title>
     <meta name="description"
-        content="Portfolio of Aayush Sharma, a Computer Science & Cyber Security Student and Web Developer.">
+        content="Portfolio of Aayush Sharma — Computer Science & Cyber Security student and web developer.">
+    <meta name="theme-color" content="#05070a">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Aayush Sharma | Portfolio">
+    <meta property="og:description" content="Projects, skills, and contact for Aayush Sharma.">
+    <meta property="og:image" content="./assets/img/presentation2.jpg">
+    <meta property="og:image:alt" content="Portrait of Aayush Sharma">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Aayush Sharma | Portfolio">
+    <meta name="twitter:description" content="Projects, skills, and contact for Aayush Sharma.">
+    <meta name="twitter:image" content="./assets/img/presentation2.jpg">
+
+    <link rel="canonical" href="./">
     <link rel="stylesheet" href="style_v2.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@1,400;1,700&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Aayush Sharma",
+          "email": "mailto:mraayush979@gmail.com",
+          "url": "./",
+          "sameAs": [
+            "https://github.com/mraayush979blip",
+            "https://www.linkedin.com/in/aAayush-sharma-2013d"
+          ],
+          "jobTitle": "Web Developer",
+          "knowsAbout": ["Cyber Security", "Web Development", "JavaScript", "React", "Python"]
+        }
+    </script>
 </head>
 
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="ambient" aria-hidden="true">
+        <div class="ambient__blobs">
+            <span class="blob b1"></span>
+            <span class="blob b2"></span>
+            <span class="blob b3"></span>
+        </div>
+        <div class="ambient__grain"></div>
+        <div class="ambient__spotlight" id="spotlight"></div>
+    </div>
     <div class="cursor-glow"></div>
 
     <nav>
-        <div class="logo"></div>
+        <div class="logo"><a href="#home" aria-label="Go to home"><span>.</span></a></div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -34,12 +75,23 @@
         </div>
     </nav>
 
-    <main>
+    <main id="main">
         <section id="home" class="hero">
             <div class="hero-content">
                 <h2 class="reveal">Hello, I'm</h2>
-                <h1 class="reveal delay-1">Aayush Sharma<span>.</span></h1>
-                <p class="reveal delay-2">Computer Science & Cyber Security Student | Web Developer</p>
+                <h1 class="reveal delay-1 hero-title" id="hero-title">Aayush Sharma<span>.</span></h1>
+                <p class="reveal delay-2 hero-subtitle" id="hero-subtitle"
+                    data-typing="Computer Science & Cyber Security Student | Web Developer">Computer Science & Cyber
+                    Security Student | Web Developer</p>
+                <div class="status-pill reveal delay-2" aria-label="Current status">
+                    <span class="dot"></span>
+                    <span class="text" id="status-text">Open to internships • Building cool stuff</span>
+                </div>
+                <div class="hero-pills reveal delay-2" aria-label="Highlights">
+                    <span>Security-first</span>
+                    <span>Fast UI</span>
+                    <span>Clean architecture</span>
+                </div>
                 <div class="hero-cta reveal delay-3">
                     <a href="#projects" class="btn primary">View My Work</a>
                     <a href="#contact" class="btn secondary">Contact Me</a>
@@ -114,88 +166,152 @@
                 <h2>Featured Projects</h2>
                 <div class="line"></div>
             </div>
+            <div class="projects-toolbar reveal" aria-label="Project filters">
+                <div class="chip-row" role="tablist" aria-label="Filter projects">
+                    <button class="chip is-active" type="button" data-filter="all" role="tab"
+                        aria-selected="true">All</button>
+                    <button class="chip" type="button" data-filter="web" role="tab" aria-selected="false">Web</button>
+                    <button class="chip" type="button" data-filter="ai" role="tab" aria-selected="false">AI</button>
+                    <button class="chip" type="button" data-filter="security" role="tab"
+                        aria-selected="false">Security</button>
+                </div>
+                <label class="search" aria-label="Search projects">
+                    <i data-lucide="search"></i>
+                    <input id="project-search" type="search" placeholder="Search projects..." autocomplete="off">
+                </label>
+            </div>
             <div class="projects-grid">
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-tags="web">
                     <div class="project-info">
                         <h3>LevelOne DSA</h3>
-                        <p>A specialized learning platform designed to streamline the mastery of Data Structures and Algorithms. Features curated lectures, practice problems, and progress tracking.</p>
-                        <p><strong>Impact:</strong> Successfully used by over 100 students to access structured academic content.</p>
+                        <p>A specialized learning platform designed to streamline the mastery of Data Structures and
+                            Algorithms. Features curated lectures, practice problems, and progress tracking.</p>
+                        <p><strong>Impact:</strong> Successfully used by over 100 students to access structured academic
+                            content.</p>
                         <div class="skill-tags">
                             <span>Next.js</span>
                             <span>Tailwind</span>
                             <span>Supabase</span>
                         </div>
                         <div style="margin-top: 15px;">
-                            <a href="https://levelone-dsa.vercel.app" target="_blank" class="btn secondary" style="padding: 8px 15px; font-size: 0.9em; text-decoration: none;">View Project</a>
+                            <a href="https://levelone-dsa.vercel.app" target="_blank" class="btn secondary"
+                                style="padding: 8px 15px; font-size: 0.9em; text-decoration: none;">View Project</a>
+                            <button class="btn secondary js-open-case" type="button"
+                                style="padding: 8px 15px; font-size: 0.9em;">Case Study</button>
                         </div>
                     </div>
                 </div>
-                
-                <div class="project-card reveal delay-1">
+
+                <div class="project-card reveal delay-1" data-tags="web security">
                     <div class="project-info">
                         <h3>Acropolis Attendance Management System</h3>
-                        <p>A digitized web-based system for real-time attendance tracking, replacing manual marking with role-based access and automated reporting.</p>
-                        <p><strong>Impact:</strong> Approved and live for the 3rd Year IT Department, reducing administrative errors.</p>
+                        <p>A digitized web-based system for real-time attendance tracking, replacing manual marking with
+                            role-based access and automated reporting.</p>
+                        <p><strong>Impact:</strong> Approved and live for the 3rd Year IT Department, reducing
+                            administrative errors.</p>
                         <div class="skill-tags">
                             <span>React</span>
                             <span>Node.js</span>
                             <span>Firebase</span>
                         </div>
                         <div style="margin-top: 15px;">
-                            <span style="font-size: 0.9em; color: #888; border: 1px solid #444; padding: 8px 15px; border-radius: 4px;">Link Confidential</span>
+                            <span
+                                style="font-size: 0.9em; color: #888; border: 1px solid #444; padding: 8px 15px; border-radius: 4px;">Link
+                                Confidential</span>
+                            <button class="btn secondary js-open-case" type="button"
+                                style="padding: 8px 15px; font-size: 0.9em;">Case Study</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-tags="web">
                     <div class="project-info">
                         <h3>LevelOne WebDev</h3>
-                        <p>An interactive ecosystem featuring project-based learning modules for HTML, CSS, JavaScript, and React, focusing on industry-ready coding standards.</p>
-                        <p><strong>Impact:</strong> Integrated with the LevelOne suite to provide a holistic "Roadmap to Placement" experience.</p>
+                        <p>An interactive ecosystem featuring project-based learning modules for HTML, CSS, JavaScript,
+                            and React, focusing on industry-ready coding standards.</p>
+                        <p><strong>Impact:</strong> Integrated with the LevelOne suite to provide a holistic "Roadmap to
+                            Placement" experience.</p>
                         <div class="skill-tags">
                             <span>Next.js</span>
                             <span>Markdown</span>
                             <span>Framer Motion</span>
                         </div>
                         <div style="margin-top: 15px;">
-                            <a href="https://webdev1.edgeone.app" target="_blank" class="btn secondary" style="padding: 8px 15px; font-size: 0.9em; text-decoration: none;">View Project</a>
+                            <a href="https://webdev1.edgeone.app" target="_blank" class="btn secondary"
+                                style="padding: 8px 15px; font-size: 0.9em; text-decoration: none;">View Project</a>
+                            <button class="btn secondary js-open-case" type="button"
+                                style="padding: 8px 15px; font-size: 0.9em;">Case Study</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card reveal delay-1">
+                <div class="project-card reveal delay-1" data-tags="ai web">
                     <div class="project-info">
                         <h3>GapShap AI</h3>
-                        <p>An intelligent WhatsApp clone integrated with advanced LLMs, allowing users to chat with specialized AI personas for mentorship, entertainment, or productivity.</p>
-                        <p><strong>Impact:</strong> Showcases cutting-edge AI integration with low-latency real-time web architecture.</p>
+                        <p>An intelligent WhatsApp clone integrated with advanced LLMs, allowing users to chat with
+                            specialized AI personas for mentorship, entertainment, or productivity.</p>
+                        <p><strong>Impact:</strong> Showcases cutting-edge AI integration with low-latency real-time web
+                            architecture.</p>
                         <div class="skill-tags">
                             <span>React</span>
                             <span>Groq Cloud</span>
                             <span>Supabase</span>
                         </div>
                         <div style="margin-top: 15px;">
-                            <a href="https://gapshapai.vercel.app/" target="_blank" class="btn secondary" style="padding: 8px 15px; font-size: 0.9em; text-decoration: none;">View Project</a>
+                            <a href="https://gapshapai.vercel.app/" target="_blank" class="btn secondary"
+                                style="padding: 8px 15px; font-size: 0.9em; text-decoration: none;">View Project</a>
+                            <button class="btn secondary js-open-case" type="button"
+                                style="padding: 8px 15px; font-size: 0.9em;">Case Study</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-tags="web">
                     <div class="project-info">
                         <h3>Shree Shyam Kunj Living Hub</h3>
-                        <p>A premium professional real estate discovery portal to showcase property listings, amenities, and floor plans with an intuitive lead generation UI.</p>
-                        <p><strong>Impact:</strong> Provided a digital identity for a local real estate brand, enhancing customer engagement.</p>
+                        <p>A premium professional real estate discovery portal to showcase property listings, amenities,
+                            and floor plans with an intuitive lead generation UI.</p>
+                        <p><strong>Impact:</strong> Provided a digital identity for a local real estate brand, enhancing
+                            customer engagement.</p>
                         <div class="skill-tags">
                             <span>Next.js</span>
                             <span>Tailwind</span>
                             <span>Cloudinary</span>
                         </div>
                         <div style="margin-top: 15px;">
-                            <a href="https://shyam-kunj.vercel.app/" target="_blank" class="btn secondary" style="padding: 8px 15px; font-size: 0.9em; text-decoration: none;">View Project</a>
+                            <a href="https://shyam-kunj.vercel.app/" target="_blank" class="btn secondary"
+                                style="padding: 8px 15px; font-size: 0.9em; text-decoration: none;">View Project</a>
+                            <button class="btn secondary js-open-case" type="button"
+                                style="padding: 8px 15px; font-size: 0.9em;">Case Study</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="section-header reveal" style="margin-top: 4rem;">
+                <h2>Latest on GitHub</h2>
+                <div class="line"></div>
+            </div>
+            <div class="github-projects reveal">
+                <div class="github-projects__bar">
+                    <p class="github-projects__hint">Auto-updated from GitHub (public data).</p>
+                    <a class="btn secondary github-projects__new_profile" href="https://github.com/mraayush979blip"
+                        target="_blank" rel="noreferrer"
+                        style="padding: 8px 15px; font-size: 0.9em; text-decoration: none;">View GitHub</a>
+                </div>
+                <div id="github-projects-grid" class="projects-grid" aria-live="polite"></div>
+                <div id="github-projects-status" class="github-projects__status" role="status" aria-live="polite"></div>
+            </div>
         </section>
+
+        <dialog class="case-modal" id="case-modal" aria-label="Project case study">
+            <div class="case-modal__inner">
+                <button class="icon-btn case-modal__close" type="button" data-close-modal aria-label="Close case study">
+                    <i data-lucide="x"></i>
+                </button>
+                <div class="case-modal__content" id="case-modal-content"></div>
+            </div>
+        </dialog>
 
         <section id="contact" class="contact">
             <div class="section-header reveal">
@@ -205,9 +321,31 @@
             <div class="contact-container reveal">
                 <div class="contact-card">
                     <h3>Let's build something together!</h3>
-                    <p>I'm always open to discussing new projects, creative ideas or opportunities to be part of your
-                        visions.</p>
-                    <a href="mailto:mraayush979@gmail.com" class="btn primary">Email Me</a>
+                    <p>I'm open to new projects, collaborations, and internship opportunities. Send a message and I'll
+                        reply soon.</p>
+
+                    <form class="contact-form" id="contact-form" novalidate>
+                        <div class="form-row">
+                            <label>
+                                <span class="sr-only">Your name</span>
+                                <input name="name" type="text" placeholder="Your name" required>
+                            </label>
+                            <label>
+                                <span class="sr-only">Your email</span>
+                                <input name="email" type="email" placeholder="Your email" required>
+                            </label>
+                        </div>
+                        <label>
+                            <span class="sr-only">Message</span>
+                            <textarea name="message" rows="5" placeholder="Your message" required></textarea>
+                        </label>
+                        <div class="form-actions">
+                            <button class="btn primary" type="submit">Send Message</button>
+                            <a href="mailto:mraayush979@gmail.com" class="btn secondary"
+                                style="text-decoration:none;">Email instead</a>
+                        </div>
+                        <p id="contact-status" class="form-status" role="status" aria-live="polite"></p>
+                    </form>
 
                     <div class="social-links">
                         <a href="https://github.com/mraayush979blip" target="_blank" title="GitHub"><i
