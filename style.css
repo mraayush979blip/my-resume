@@ -127,7 +127,7 @@ nav {
     align-items: center;
     padding: 0 10%;
     position: relative;
-    background-image: linear-gradient(to right, rgba(5, 7, 10, 1) 30%, rgba(5, 7, 10, 0.4) 60%, rgba(5, 7, 10, 0.8) 100%), url('assets/img/presentation2.jpg');
+    background-image: linear-gradient(to right, rgba(5, 7, 10, 1) 30%, rgba(5, 7, 10, 0.4) 60%, rgba(5, 7, 10, 0.8) 100%), url('assets/img/Presentation2.jpg');
     background-size: contain;
     background-position: right center;
     background-repeat: no-repeat;

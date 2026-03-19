@@ -181,7 +181,7 @@ body::before {
     height: 100%;
     background:
         linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.68)),
-        url('./assets/img/presentation2.jpg');
+        url('./assets/img/Presentation2.jpg');
     background-size: cover;
     background-position: center calc(50% + var(--bg-shift, 0px));
     background-repeat: no-repeat;
