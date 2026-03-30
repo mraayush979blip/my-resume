@@ -1,7 +1,20 @@
+/**
+ * Aayush Sharma | Portfolio Script 2026
+ * Features: Custom Cursor, Reveal Animations, GitHub API Integration, 
+ * Magnetic Buttons, 3D Tilt Cards, and Lucide Icon Management.
+ */
+
 const prefersReducedMotion = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const hasFinePointer = () => window.matchMedia && window.matchMedia('(pointer: fine)').matches;
 
-// Custom Cursor Glow + Spotlight (rAF throttled)
+// 1. Initialize Lucide Icons immediately on load
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+});
+
+// 2. Custom Cursor Glow + Spotlight (rAF throttled)
 const cursorGlow = document.querySelector('.cursor-glow');
 const spotlight = document.getElementById('spotlight');
 let pointerX = 0;
@@ -25,7 +38,7 @@ document.addEventListener('mousemove', (e) => {
     });
 }, { passive: true });
 
-// Reveal Animations (IntersectionObserver to avoid scroll work)
+// 3. Reveal Animations (IntersectionObserver)
 const revealElements = document.querySelectorAll('.reveal');
 const revealedOnce = new WeakSet();
 const revealObserver = new IntersectionObserver((entries, obs) => {
@@ -34,6 +47,273 @@ const revealObserver = new IntersectionObserver((entries, obs) => {
         const el = entry.target;
         el.classList.add('active');
         if (!revealedOnce.has(el) && !prefersReducedMotion()) {
+            revealedOnce.add(el);
+            const kids = Array.from(el.children || []);
+            kids.slice(0, 10).forEach((kid, idx) => {
+                kid.style.transitionDelay = `${idx * 70}ms`;
+            });
+        }
+        obs.unobserve(el);
+    });
+}, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+revealElements.forEach(el => revealObserver.observe(el));
+
+// 4. Navbar & Mobile Menu
+const nav = document.querySelector('nav');
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+const updateNavbar = () => {
+    if (!nav) return;
+    if (window.scrollY > 50) {
+        nav.style.background = 'rgba(5, 7, 10, 0.9)';
+        nav.style.padding = '1rem 10%';
+    } else {
+        nav.style.background = 'transparent';
+        nav.style.padding = '1.5rem 10%';
+    }
+};
+
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        if (navLinks.classList.contains('active')) {
+            icon.setAttribute('data-lucide', 'x');
+        } else {
+            icon.setAttribute('data-lucide', 'menu');
+        }
+        lucide.createIcons(); // Re-render icon change
+    });
+}
+
+// Close mobile menu when link is clicked
+document.querySelectorAll('.nav-links a').forEach(item => {
+    item.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.setAttribute('data-lucide', 'menu');
+        lucide.createIcons();
+    });
+});
+
+// 5. Scroll Pipeline (Active Links + Parallax)
+const setActiveNavLink = () => {
+    const sections = document.querySelectorAll('main section[id]');
+    const links = document.querySelectorAll('.nav-links a[href^="#"]');
+    if (!sections.length || !links.length) return;
+
+    const scrollPos = window.scrollY + 120;
+    let activeId = null;
+    sections.forEach(sec => {
+        const top = sec.offsetTop;
+        const bottom = top + sec.offsetHeight;
+        if (scrollPos >= top && scrollPos < bottom) activeId = sec.id;
+    });
+
+    links.forEach(a => {
+        const href = a.getAttribute('href') || '';
+        const isActive = activeId && href === `#${activeId}`;
+        a.classList.toggle('is-active', Boolean(isActive));
+    });
+};
+
+const updateParallax = () => {
+    if (prefersReducedMotion()) return;
+    const shift = Math.max(-40, Math.min(40, window.scrollY * 0.03));
+    document.documentElement.style.setProperty('--bg-shift', `${shift}px`);
+};
+
+let scrollTicking = false;
+window.addEventListener('scroll', () => {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+        updateNavbar();
+        setActiveNavLink();
+        updateParallax();
+        scrollTicking = false;
+    });
+}, { passive: true });
+
+// 6. Interactive Effects (Magnetic & Tilt)
+const enableMagnetic = () => {
+    if (prefersReducedMotion() || !hasFinePointer()) return;
+    document.querySelectorAll('.btn, .chip, .icon-btn, .resume-btn').forEach(el => {
+        el.classList.add('magnetic');
+        let rect = null;
+        const strength = 0.18;
+
+        el.addEventListener('mouseenter', () => { rect = el.getBoundingClientRect(); });
+        el.addEventListener('mousemove', (e) => {
+            if (!rect) rect = el.getBoundingClientRect();
+            const mx = e.clientX - (rect.left + rect.width / 2);
+            const my = e.clientY - (rect.top + rect.height / 2);
+            el.style.transform = `translate3d(${mx * strength}px, ${my * strength}px, 0)`;
+        });
+        el.addEventListener('mouseleave', () => {
+            rect = null;
+            el.style.transform = '';
+        });
+    });
+};
+
+const enableTilt = () => {
+    if (prefersReducedMotion() || !hasFinePointer()) return;
+    document.querySelectorAll('.project-card, .skill-category').forEach(card => {
+        if (!card.querySelector('.tilt-shine')) {
+            const shine = document.createElement('div');
+            shine.className = 'tilt-shine';
+            card.appendChild(shine);
+        }
+        let rect = null;
+        const max = 10;
+        const shine = card.querySelector('.tilt-shine');
+
+        card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
+        card.addEventListener('mousemove', (e) => {
+            if (!rect) rect = card.getBoundingClientRect();
+            const px = (e.clientX - rect.left) / rect.width;
+            const py = (e.clientY - rect.top) / rect.height;
+            const rx = (py - 0.5) * -max;
+            const ry = (px - 0.5) * max;
+            card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+            if (shine) {
+                shine.style.setProperty('--mx', `${px * 100}%`);
+                shine.style.setProperty('--my', `${py * 100}%`);
+            }
+        });
+        card.addEventListener('mouseleave', () => {
+            rect = null;
+            card.style.transform = '';
+        });
+    });
+};
+
+// 7. Hero Animations
+const runHeroFx = () => {
+    if (prefersReducedMotion()) return;
+    const subtitle = document.getElementById('hero-subtitle');
+    const title = document.getElementById('hero-title');
+    if (title) {
+        title.setAttribute('data-text', title.textContent.trim());
+        title.classList.add('glitch');
+        setTimeout(() => title.classList.remove('glitch'), 650);
+    }
+    if (!subtitle) return;
+    const full = subtitle.getAttribute('data-typing') || subtitle.textContent || '';
+    subtitle.textContent = '';
+    let i = 0;
+    const tick = () => {
+        i += 1;
+        subtitle.textContent = full.slice(0, i);
+        if (i < full.length) requestAnimationFrame(tick);
+    };
+    setTimeout(() => requestAnimationFrame(tick), 350);
+};
+
+// 8. GitHub API Integration
+const GITHUB_USERNAME = 'mraayush979blip';
+const githubGrid = document.getElementById('github-projects-grid');
+const githubStatus = document.getElementById('github-projects-status');
+
+const renderGithubRepos = (repos) => {
+    if (!githubGrid) return;
+    githubGrid.innerHTML = repos.map(repo => {
+        const lang = repo.language ? `<span><i data-lucide="code"></i>${repo.language}</span>` : '';
+        return `
+            <div class="project-card reveal active">
+                <div class="project-info">
+                    <h3>${repo.name}</h3>
+                    <p>${repo.description || 'No description provided.'}</p>
+                    <div class="project-meta">
+                        ${lang}
+                        <span><i data-lucide="star"></i>${repo.stargazers_count}</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="${repo.html_url}" target="_blank" class="btn secondary">Code</a>
+                    </div>
+                </div>
+            </div>`;
+    }).join('');
+    if (window.lucide) lucide.createIcons();
+};
+
+const loadGithubRepos = async () => {
+    if (!githubGrid) return;
+    try {
+        const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`);
+        const data = await res.json();
+        renderGithubRepos(data.filter(r => !r.fork));
+    } catch (err) {
+        if (githubStatus) githubStatus.textContent = 'Failed to load GitHub projects.';
+    }
+};
+
+// 9. Case Studies & Contact
+const CASE_STUDIES = {
+    'LevelOne DSA': {
+        problem: 'Students needed a single, structured place to learn DSA.',
+        approach: ['Designed course structure.', 'Used Supabase for auth.'],
+        results: ['Used by 100+ students.'],
+        tech: ['Next.js', 'Tailwind', 'Supabase']
+    },
+    'Acropolis Attendance Management System': {
+        problem: 'Manual attendance caused errors.',
+        approach: ['Built role-based access.', 'Automated reporting.'],
+        results: ['Live for 3rd Year IT Department.'],
+        tech: ['React', 'Node.js', 'Firebase']
+    }
+    // Add other projects here...
+};
+
+const openCaseModal = (title) => {
+    const modal = document.getElementById('case-modal');
+    const content = document.getElementById('case-modal-content');
+    const data = CASE_STUDIES[title];
+    if (!modal || !data) return;
+
+    content.innerHTML = `
+        <h3>${title}</h3>
+        <p><strong>Problem:</strong> ${data.problem}</p>
+        <p><strong>Approach:</strong> ${data.approach.join(', ')}</p>
+        <p><strong>Results:</strong> ${data.results.join(', ')}</p>
+        <div class="skill-tags">${data.tech.map(t => `<span>${t}</span>`).join('')}</div>
+    `;
+    modal.showModal();
+    lucide.createIcons();
+};
+
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.js-open-case');
+    if (btn) {
+        const title = btn.closest('.project-card').querySelector('h3').textContent;
+        openCaseModal(title);
+    }
+    if (e.target.closest('[data-close-modal]')) document.getElementById('case-modal').close();
+});
+
+// Contact Form
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(contactForm);
+        const name = fd.get('name');
+        const message = fd.get('message');
+        window.location.href = `mailto:mraayush979@gmail.com?subject=Contact from ${name}&body=${message}`;
+    });
+}
+
+// Initializing all features on window load
+window.addEventListener('load', () => {
+    updateNavbar();
+    setActiveNavLink();
+    enableMagnetic();
+    enableTilt();
+    runHeroFx();
+    loadGithubRepos();
+});
             revealedOnce.add(el);
             const kids = Array.from(el.children || []);
             kids.slice(0, 10).forEach((kid, idx) => {
