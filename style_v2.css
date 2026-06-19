@@ -1123,9 +1123,9 @@ footer {
         border-radius: 24px;
         padding: 1.5rem;
         margin-bottom: 2rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
-    
+
     .project-info h3 {
         font-size: 1.6rem;
         margin-bottom: 1rem;
@@ -1331,14 +1331,31 @@ footer {
 }
 
 @keyframes scrollWheel {
-    0% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
 }
 
 @keyframes scrollArrows {
-    0% { opacity: 0; transform: rotate(45deg) translate(-10px, -10px); }
-    50% { opacity: 1; }
-    100% { opacity: 0; transform: rotate(45deg) translate(10px, 10px); }
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) translate(-10px, -10px);
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) translate(10px, 10px);
+    }
 }
 
 @media (max-width: 968px) {
