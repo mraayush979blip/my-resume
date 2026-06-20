@@ -240,6 +240,22 @@ nav {
     color: var(--primary-color);
 }
 
+.profile-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 10px rgba(181, 193, 142, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: block; /* Removes inline gap */
+}
+
+.profile-logo:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 15px rgba(181, 193, 142, 0.6);
+}
+
 .nav-links {
     display: flex;
     list-style: none;
