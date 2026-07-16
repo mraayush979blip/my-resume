@@ -17,6 +17,7 @@
     <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
 
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Aayush Sharma">
     <meta property="og:title" content="Aayush Sharma | Cyber Security & Web Developer">
     <meta property="og:description"
         content="Discover the projects, skills, and experience of Aayush Sharma, a dedicated Cyber Security and Web Development student.">
@@ -39,20 +40,29 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@1,400;1,700&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@0.469.0"></script>
+    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
     <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "name": "Aayush Sharma",
-          "email": "mailto:mraayush979@gmail.com",
-          "url": "./",
-          "sameAs": [
-            "https://github.com/mraayush979blip",
-            "https://www.linkedin.com/in/aAayush-sharma-2013d"
-          ],
-          "jobTitle": "Web Developer",
-          "knowsAbout": ["Cyber Security", "Web Development", "JavaScript", "React", "Python"]
-        }
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Aayush Sharma",
+            "url": "https://itsaayushsharma.vercel.app/"
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Aayush Sharma",
+            "email": "mailto:mraayush979@gmail.com",
+            "url": "https://itsaayushsharma.vercel.app/",
+            "sameAs": [
+              "https://github.com/mraayush979blip",
+              "https://www.linkedin.com/in/aAayush-sharma-2013d"
+            ],
+            "jobTitle": "Web Developer",
+            "knowsAbout": ["Cyber Security", "Web Development", "JavaScript", "React", "Python"]
+          }
+        ]
     </script>
 </head>
 
@@ -140,6 +150,9 @@
                     <div class="info-item">
                         <span class="label">Education</span>
                         <span class="value">B.Tech (CS & Cyber Security)</span>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="dark" data-type="HORIZONTAL" data-vanity="aayush-sharma-2013d" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://in.linkedin.com/in/aayush-sharma-2013d?trk=profile-badge" style="display: none;">Aayush Sharma</a></div>
                     </div>
                 </div>
             </div>
@@ -316,20 +329,7 @@
                 </div>
             </div>
 
-            <div class="section-header reveal" style="margin-top: 4rem;">
-                <h2>Latest on GitHub</h2>
-                <div class="line"></div>
-            </div>
-            <div class="github-projects reveal">
-                <div class="github-projects__bar">
-                    <p class="github-projects__hint">Auto-updated from GitHub (public data).</p>
-                    <a class="btn secondary github-projects__new_profile" href="https://github.com/mraayush979blip"
-                        target="_blank" rel="noreferrer"
-                        style="padding: 8px 15px; font-size: 0.9em; text-decoration: none;">View GitHub</a>
-                </div>
-                <div id="github-projects-grid" class="projects-grid" aria-live="polite"></div>
-                <div id="github-projects-status" class="github-projects__status" role="status" aria-live="polite"></div>
-            </div>
+
         </section>
 
         <dialog class="case-modal" id="case-modal" aria-label="Project case study">

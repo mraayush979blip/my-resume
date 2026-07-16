@@ -183,12 +183,11 @@ body::before {
         linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.68)),
         url('./assets/img/Presentation2.jpg');
     background-size: cover;
-    background-position: center calc(50% + var(--bg-shift, 0px));
+    background-position: center center;
     background-repeat: no-repeat;
     background-attachment: scroll;
     z-index: -1;
     filter: brightness(1.03) contrast(1.05);
-    will-change: background-position;
 }
 
 
@@ -361,16 +360,7 @@ textarea:focus-visible,
     background: transparent;
 }
 
-/* Add a pseudo-element for extra depth if needed, or keep it clean */
-.hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 150px;
-    background: linear-gradient(to top, var(--bg-color), transparent);
-}
+
 
 .hero-content {
     z-index: 5;
