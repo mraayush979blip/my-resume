@@ -1140,10 +1140,20 @@ footer {
     .about-grid {
         grid-template-columns: 1fr;
         gap: 3rem;
+        text-align: center;
     }
 
     .about-info {
         order: -1;
+        align-items: center;
+    }
+
+    .section-header {
+        text-align: center;
+    }
+
+    .section-header .line {
+        margin: 10px auto 0;
     }
 
     .section-header h2 {
