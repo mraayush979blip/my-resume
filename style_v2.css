@@ -533,6 +533,7 @@ textarea:focus-visible,
 /* Sections */
 section {
     padding: 100px 10%;
+    scroll-margin-top: 80px;
 }
 
 main {
@@ -604,6 +605,21 @@ h2 {
 .info-item .value {
     font-size: 1.1rem;
     font-weight: 500;
+}
+
+/* LinkedIn Badge Overrides */
+.LI-profile-badge {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+.LI-profile-badge * {
+    font-family: 'Outfit', sans-serif !important;
+    font-style: normal !important;
+    text-shadow: none !important;
+    letter-spacing: normal !important;
 }
 
 /* Skills Section */
