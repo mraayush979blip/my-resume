@@ -1153,6 +1153,10 @@ footer {
         margin-bottom: 1rem;
     }
 
+    section {
+        padding: 60px 5%;
+    }
+
     .about-grid {
         grid-template-columns: 1fr;
         gap: 3rem;
@@ -1162,6 +1166,7 @@ footer {
     .about-info {
         order: -1;
         align-items: center;
+        padding: 1.5rem;
     }
 
     .section-header {
