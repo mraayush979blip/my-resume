@@ -1447,20 +1447,37 @@ nav:not(.scrolled) {
 
 /* Mobile specific styling for capsule nav and single line hero pills */
 @media (max-width: 968px) {
-    /* iOS Capsule-like Navbar */
+    /* Transparent Navbar (just three bars) */
     nav {
-        top: 15px;
-        width: 90%;
-        left: 5%;
-        border-radius: 50px;
-        padding: 0.8rem 1.5rem !important; /* Override JS padding */
+        top: 0;
+        width: 100%;
+        left: 0;
+        border-radius: 0;
+        padding: 1rem 5% !important;
+        border: none !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        box-shadow: none !important;
+        pointer-events: none; /* Let clicks pass through */
+    }
+    nav.scrolled, nav:not(.scrolled) {
+        background: transparent !important;
+        padding: 1rem 5% !important;
+        box-shadow: none !important;
+    }
+    nav .logo {
+        display: none !important; /* Hide logo */
+    }
+    nav .mobile-menu-btn {
+        pointer-events: auto; /* Ensure button is clickable */
+        background: rgba(5, 7, 10, 0.7); /* Give the button a slight background to be visible */
+        padding: 0.5rem;
+        border-radius: 8px;
         border: 1px solid var(--glass-border);
-    }
-    nav.scrolled {
-        padding: 0.8rem 1.5rem !important;
-    }
-    nav:not(.scrolled) {
-        padding: 0.8rem 1.5rem !important;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        margin-left: auto; /* Push to the right */
     }
 
     /* Single Line Hero Pills */
