@@ -72,6 +72,17 @@ if (mobileMenuBtn) {
     });
 }
 
+const mobileCloseBtn = document.getElementById('mobile-close-btn');
+if (mobileCloseBtn) {
+    mobileCloseBtn.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.innerHTML = '<i data-lucide="menu"></i>';
+        }
+        lucide.createIcons();
+    });
+}
+
 // Close mobile menu when link is clicked
 const navItems = document.querySelectorAll('.nav-links a');
 navItems.forEach(item => {
