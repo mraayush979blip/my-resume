@@ -1448,6 +1448,7 @@ nav:not(.scrolled) {
 /* Mobile specific styling for capsule nav and single line hero pills */
 @media (max-width: 968px) {
     /* Transparent Navbar (just three bars) */
+    /* Transparent Navbar (just three bars) */
     nav {
         top: 0;
         width: 100%;
@@ -1460,14 +1461,21 @@ nav:not(.scrolled) {
         -webkit-backdrop-filter: none !important;
         box-shadow: none !important;
         pointer-events: none; /* Let clicks pass through */
+        display: flex !important;
+        justify-content: flex-end !important; /* Right align the content */
     }
     nav.scrolled, nav:not(.scrolled) {
         background: transparent !important;
         padding: 1rem 5% !important;
         box-shadow: none !important;
     }
-    nav .logo {
-        display: none !important; /* Hide logo */
+    nav .logo, nav .resume-btn {
+        display: none !important; /* Hide logo and hire me button */
+    }
+    nav .nav-extra {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
     }
     nav .mobile-menu-btn {
         pointer-events: auto; /* Ensure button is clickable */
@@ -1477,7 +1485,9 @@ nav:not(.scrolled) {
         border: 1px solid var(--glass-border);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        margin-left: auto; /* Push to the right */
+    }
+    .nav-links {
+        pointer-events: auto !important; /* Fix unclickable nav links */
     }
 
     /* Single Line Hero Pills */
