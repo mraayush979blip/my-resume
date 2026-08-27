@@ -1531,6 +1531,10 @@ nav:not(.scrolled) {
     .hero-pills span {
         white-space: nowrap;
     }
+    
+    .scroll-indicator {
+        display: none !important;
+    }
 }
 
 /* Hide mobile close button on desktop */
@@ -1538,4 +1542,17 @@ nav:not(.scrolled) {
     .mobile-close-btn {
         display: none !important;
     }
+}
+
+/* Center align case study content */
+.case-modal__content {
+    text-align: center;
+}
+
+.case-grid ul {
+    list-style-position: inside;
+}
+
+.case-grid .skill-tags {
+    justify-content: center;
 }
