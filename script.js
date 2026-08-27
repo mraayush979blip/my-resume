@@ -50,11 +50,13 @@ const nav = document.querySelector('nav');
 const updateNavbar = () => {
     if (!nav) return;
     if (window.scrollY > 50) {
-        nav.style.background = 'rgba(5, 7, 10, 0.9)';
+        nav.style.background = 'rgba(5, 7, 10, 0.7)'; // Slightly more opaque for scrolling
         nav.style.padding = '1rem 10%';
+        nav.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
     } else {
-        nav.style.background = 'transparent';
+        nav.style.background = 'rgba(5, 7, 10, 0.2)'; // More transparent at top
         nav.style.padding = '1.5rem 10%';
+        nav.style.boxShadow = 'none';
     }
 };
 
@@ -435,22 +437,42 @@ const openCaseModal = (title) => {
         </div>
     `;
 
-    if (typeof caseModal.showModal === 'function') {
-        caseModal.showModal();
-    } else {
-        caseModal.setAttribute('open', '');
-    }
+    const showDOM = () => {
+        if (typeof caseModal.showModal === 'function') {
+            caseModal.showModal();
+        } else {
+            caseModal.setAttribute('open', '');
+        }
 
-    const closeBtn = caseModal.querySelector('[data-close-modal]');
-    if (closeBtn) closeBtn.focus();
-    if (window.lucide) lucide.createIcons();
+        const closeBtn = caseModal.querySelector('[data-close-modal]');
+        if (closeBtn) closeBtn.focus();
+        if (window.lucide) lucide.createIcons();
+    };
+
+    if (!document.startViewTransition) {
+        showDOM();
+    } else {
+        document.startViewTransition(() => showDOM());
+    }
 };
 
 const closeCaseModal = () => {
     if (!caseModal) return;
-    if (typeof caseModal.close === 'function') caseModal.close();
-    else caseModal.removeAttribute('open');
-    if (lastFocusEl && typeof lastFocusEl.focus === 'function') lastFocusEl.focus();
+
+    const hideDOM = () => {
+        if (typeof caseModal.close === 'function') caseModal.close();
+        else caseModal.removeAttribute('open');
+        if (lastFocusEl && typeof lastFocusEl.focus === 'function') lastFocusEl.focus();
+    };
+
+    if (!document.startViewTransition) {
+        hideDOM();
+    } else {
+        const transition = document.startViewTransition(() => hideDOM());
+        transition.finished.finally(() => {
+            document.querySelectorAll('.morph-active').forEach(c => c.classList.remove('morph-active'));
+        });
+    }
 };
 
 document.addEventListener('click', (e) => {
@@ -459,6 +481,10 @@ document.addEventListener('click', (e) => {
         const card = openBtn.closest('.project-card');
         const titleEl = card ? card.querySelector('h3') : null;
         const title = titleEl ? titleEl.textContent.trim() : '';
+        if (card) {
+            document.querySelectorAll('.morph-active').forEach(c => c.classList.remove('morph-active'));
+            card.classList.add('morph-active');
+        }
         openCaseModal(title);
         return;
     }

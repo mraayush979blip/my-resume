@@ -181,7 +181,7 @@ body::before {
     height: 100%;
     background:
         linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.68)),
-        url('./assets/img/Presentation2.jpg');
+        url('./assets/img/Presentation2.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -217,7 +217,10 @@ nav {
     width: 100%;
     z-index: 1000;
     border-bottom: 1px solid var(--glass-border);
-    transition: background 0.3s;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(5, 7, 10, 0.4);
 }
 
 .logo {
@@ -1101,7 +1104,7 @@ footer {
     body::before {
         background:
             linear-gradient(rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.82)),
-            url('./assets/img/Presentation1.jpg');
+            url('./assets/img/Presentation1.webp');
         background-size: cover;
         background-position: center;
     }
@@ -1415,4 +1418,17 @@ footer {
     .cursor-glow {
         display: none;
     }
+}
+
+/* View Transitions for Morph Animation */
+.case-modal__inner {
+    view-transition-name: case-morph;
+}
+.project-card.morph-active {
+    view-transition-name: case-morph;
+}
+
+::view-transition-old(case-morph),
+::view-transition-new(case-morph) {
+    height: 100%;
 }
