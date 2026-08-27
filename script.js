@@ -384,6 +384,12 @@ const caseModalContent = document.getElementById('case-modal-content');
 let lastFocusEl = null;
 
 const CASE_STUDIES = {
+    'Petricor': {
+        problem: 'A multi-generational botanical ingredient family business needed a digital presence to share their clear, honest story and premium offerings with the world.',
+        approach: ['Built a responsive, high-performance platform highlighting their rich history in Neemuch.', 'Used Next.js and Tailwind CSS for a fast, modern UI with storytelling elements.', 'Integrated Supabase for backend management of inquiries and catalog.'],
+        results: ['Established a premium digital presence.', 'Improved engagement and reach for their botanical ingredients.'],
+        tech: ['Next.js', 'Tailwind', 'Supabase']
+    },
     'LevelOne DSA': {
         problem: 'Students needed a single, structured place to learn DSA with practice + progress tracking.',
         approach: ['Designed a clear course structure with curated lectures + problems.', 'Used Supabase for auth/data and fast iteration.', 'Optimized UX for daily practice (quick resume + progress).'],
@@ -395,6 +401,12 @@ const CASE_STUDIES = {
         approach: ['Built role-based access for faculty/admin.', 'Added real-time attendance workflow with audit-friendly data.', 'Automated reporting to reduce admin overhead.'],
         results: ['Approved and live for 3rd Year IT department.', 'Reduced administrative errors.'],
         tech: ['React', 'Node.js', 'Firebase']
+    },
+    'Go Canteen': {
+        problem: 'College canteens faced long physical queues, manual order processing delays, and lack of real-time tracking.',
+        approach: ['Developed a real-time, express campus food ordering PWA.', 'Built a Kitchen Display System (KDS) for staff and comprehensive admin portals.', 'Implemented live token tracking for students.'],
+        results: ['Streamlined college canteen operations.', 'Eliminated physical queues and significantly increased order processing efficiency through automated real-time synchronization.'],
+        tech: ['React', 'Tailwind CSS', 'Supabase', 'PWA']
     },
     'LevelOne WebDev': {
         problem: 'Learners needed project-based modules aligned with industry-ready standards.',
