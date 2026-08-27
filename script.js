@@ -50,13 +50,9 @@ const nav = document.querySelector('nav');
 const updateNavbar = () => {
     if (!nav) return;
     if (window.scrollY > 50) {
-        nav.style.background = 'rgba(5, 7, 10, 0.7)'; // Slightly more opaque for scrolling
-        nav.style.padding = '1rem 10%';
-        nav.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+        nav.classList.add('scrolled');
     } else {
-        nav.style.background = 'rgba(5, 7, 10, 0.2)'; // More transparent at top
-        nav.style.padding = '1.5rem 10%';
-        nav.style.boxShadow = 'none';
+        nav.classList.remove('scrolled');
     }
 };
 

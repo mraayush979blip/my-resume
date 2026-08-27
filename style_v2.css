@@ -1432,3 +1432,50 @@ footer {
 ::view-transition-new(case-morph) {
     height: 100%;
 }
+
+/* Update nav for glassmorphism based on .scrolled class */
+nav.scrolled {
+    background: rgba(5, 7, 10, 0.7);
+    padding: 1rem 10%;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+nav:not(.scrolled) {
+    background: rgba(5, 7, 10, 0.2);
+    padding: 1.5rem 10%;
+    box-shadow: none;
+}
+
+/* Mobile specific styling for capsule nav and single line hero pills */
+@media (max-width: 968px) {
+    /* iOS Capsule-like Navbar */
+    nav {
+        top: 15px;
+        width: 90%;
+        left: 5%;
+        border-radius: 50px;
+        padding: 0.8rem 1.5rem !important; /* Override JS padding */
+        border: 1px solid var(--glass-border);
+    }
+    nav.scrolled {
+        padding: 0.8rem 1.5rem !important;
+    }
+    nav:not(.scrolled) {
+        padding: 0.8rem 1.5rem !important;
+    }
+
+    /* Single Line Hero Pills */
+    .hero-pills {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Hide scrollbar Firefox */
+        justify-content: flex-start;
+    }
+    .hero-pills::-webkit-scrollbar {
+        display: none; /* Hide scrollbar Chrome/Safari/Edge */
+    }
+    .hero-pills span {
+        white-space: nowrap;
+    }
+}
