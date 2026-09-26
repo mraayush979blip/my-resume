@@ -1,0 +1,21 @@
+{
+  "name": "aayush-sharma-portfolio",
+  "version": "2.0.0",
+  "description": "Aayush Sharma - Cyber Security & Full Stack Web Developer Portfolio",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx --yes serve . -l 3000",
+    "start": "npx --yes serve . -l 3000",
+    "serve": "npx --yes serve . -l 3000"
+  },
+  "keywords": [
+    "portfolio",
+    "resume",
+    "cyber-security",
+    "web-developer",
+    "nextjs",
+    "react"
+  ],
+  "author": "Aayush Sharma",
+  "license": "MIT"
+}

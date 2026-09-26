@@ -25,24 +25,15 @@ document.addEventListener('mousemove', (e) => {
     });
 }, { passive: true });
 
-// Reveal Animations (IntersectionObserver to avoid scroll work)
+// Reveal Animations (High performance & instantaneous on scroll)
 const revealElements = document.querySelectorAll('.reveal');
-const revealedOnce = new WeakSet();
 const revealObserver = new IntersectionObserver((entries, obs) => {
     entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        const el = entry.target;
-        el.classList.add('active');
-        if (!revealedOnce.has(el) && !prefersReducedMotion()) {
-            revealedOnce.add(el);
-            const kids = Array.from(el.children || []);
-            kids.slice(0, 10).forEach((kid, idx) => {
-                kid.style.transitionDelay = `${idx * 70}ms`;
-            });
-        }
-        obs.unobserve(el);
+        entry.target.classList.add('active');
+        obs.unobserve(entry.target);
     });
-}, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+}, { root: null, rootMargin: '0px 0px 250px 0px', threshold: 0.01 });
 revealElements.forEach(el => revealObserver.observe(el));
 
 // Navbar scroll effect
@@ -170,8 +161,8 @@ const enableMagnetic = () => {
 };
 window.addEventListener('load', enableMagnetic);
 
-// 3D tilt cards (projects + skill cards) + shine
-const tiltCards = () => Array.from(document.querySelectorAll('.project-card, .skill-category'));
+// 3D tilt cards (rAF throttled & high performance)
+const tiltCards = () => Array.from(document.querySelectorAll('.project-card, .skill-category, .insight-card, .linkedin-creator-card'));
 const enableTilt = () => {
     if (prefersReducedMotion() || !hasFinePointer()) return;
     tiltCards().forEach(card => {
@@ -181,25 +172,36 @@ const enableTilt = () => {
             card.appendChild(shine);
         }
         let rect = null;
-        const max = 10;
+        const max = 7;
         const shine = card.querySelector('.tilt-shine');
+        let ticking = false;
 
-        const onEnter = () => { rect = card.getBoundingClientRect(); };
+        const onEnter = () => {
+            rect = card.getBoundingClientRect();
+            card.style.transition = 'none';
+        };
         const onMove = (e) => {
-            if (!rect) rect = card.getBoundingClientRect();
-            const px = (e.clientX - rect.left) / rect.width;
-            const py = (e.clientY - rect.top) / rect.height;
-            const rx = (py - 0.5) * -max;
-            const ry = (px - 0.5) * max;
-            card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
-            if (shine) {
-                shine.style.setProperty('--mx', `${px * 100}%`);
-                shine.style.setProperty('--my', `${py * 100}%`);
-            }
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                if (!rect) rect = card.getBoundingClientRect();
+                const px = (e.clientX - rect.left) / rect.width;
+                const py = (e.clientY - rect.top) / rect.height;
+                const rx = (py - 0.5) * -max;
+                const ry = (px - 0.5) * max;
+                card.style.transform = `perspective(1000px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-4px)`;
+                if (shine) {
+                    shine.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);
+                    shine.style.setProperty('--my', `${(py * 100).toFixed(1)}%`);
+                }
+                ticking = false;
+            });
         };
         const onLeave = () => {
             rect = null;
             card.style.transform = '';
+            card.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease';
+            ticking = false;
         };
 
         card.addEventListener('mouseenter', onEnter);
@@ -384,35 +386,125 @@ const caseModalContent = document.getElementById('case-modal-content');
 let lastFocusEl = null;
 
 const CASE_STUDIES = {
+    'Mahaurja Renewables': {
+        problem: 'Industrial manufacturing and boiler operations face escalating fossil fuel prices and stringent carbon emission regulations. While biomass pellets provide a sustainable alternative, plant managers often hesitate due to inconsistent calorific value (GCV), moisture variations, and uncertain return on investment. Furthermore, procurement teams span corporate executives and regional ground managers who require information in both English and Hindi.',
+        approach: [
+            'Engineered Technical Matrix: Developed an interactive specification grid highlighting Mahaurja\'s custom pellet engineering (target 5,000+ kcal/kg GCV, low ash, controlled moisture) compared to generic standard fuel.',
+            'Real-Time Financial Modeling: Built an intuitive ROI estimator using Framer Motion and dynamic sliders, enabling prospective clients to visualize immediate monthly fuel expenditure cuts and annualized CO₂ tonnage offset.',
+            'Dynamic Localization & RFQ Funnel: Engineered a zero-latency i18n translation system supporting Hindi and English alongside an industry-specific RFQ form capturing boiler types, pellet sizes (6mm/8mm/10mm), and delivery schedules.',
+            'Cinematic & Modern B2B Brand Identity: Built a modern, green industrial aesthetic using Tailwind CSS v4, custom SVG flow connectors, and optimized video background loops without compromising initial page load speed.'
+        ],
+        results: [
+            '36,000+ MT / Year Capacity Showcased: Built a digital presence representing a 120 Tons Per Day industrial facility across a 200,000+ sq. ft. plant footprint.',
+            'Interactive Real-Time ROI Engine: Allows plant managers to instantly calculate up to 72% fuel cost savings and annual CO₂ reductions switching from coal, diesel, and gas.',
+            'Full Bilingual Reach (EN / HI): Integrated English and Hindi localization without page reloads to cater to both corporate buyers and regional plant procurement teams.',
+            'Sub-Second Performance & SEO: Near-perfect Core Web Vitals with lazy-loaded video, Next.js image optimization, and full Schema.org microdata for industrial search ranking.'
+        ],
+        tech: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Framer Motion', 'i18n Engine']
+    },
     'Petricor': {
-        problem: 'A multi-generational botanical ingredient family business needed a digital presence to share their clear, honest story and premium offerings with the world.',
-        approach: ['Built a responsive, high-performance platform highlighting their rich history in Neemuch.', 'Used Next.js and Tailwind CSS for a fast, modern UI with storytelling elements.', 'Integrated Supabase for backend management of inquiries and catalog.'],
-        results: ['Established a premium digital presence.', 'Improved engagement and reach for their botanical ingredients.'],
-        tech: ['Next.js', 'Tailwind', 'Supabase']
+        problem: 'The international botanical extracts and herbal supplements market is plagued by opaque supply chains, multi-tier broker markups, and unverified ingredient authenticity. International pharmaceutical and nutraceutical buyers often struggle with delayed quotation cycles, lack of HPLC-quantified proof of active compounds, and cumbersome paperwork compliance for cross-border customs (IEC, FSSAI, Phytosanitary, CoA).',
+        approach: [
+            'Direct-From-Source Digital Presence: Designed an authoritative UI emphasizing farm-origin transparency in Neemuch, India, with real-time compliance credentials and interactive category exploration.',
+            'Modern Full-Stack Engineering: Developed with React 19, TypeScript, and Vite backed by Supabase. Implemented structured JSON-LD schemas and responsive scaling for ultrawide and mobile viewports.',
+            'Automated Lead & Security Pipeline: Built a multi-step RFQ modal protected by Google reCAPTCHA v3, instantly routing structured buyer requirements via Supabase Edge Functions.',
+            'Enterprise Admin Dashboard: Created a secured internal admin panel (/ad) allowing operations teams to track active enquiries, update product specs, manage image uploads with browser-based cropping, and monitor system health.'
+        ],
+        results: [
+            'Successfully deployed into live production on Vercel.',
+            'Eliminated broker intermediaries by directly linking global herbal importers to source-verified Indian farmers and processing units.',
+            'Accelerated inquiry-to-sample turnaround times while delivering full regulatory compliance out of the box.'
+        ],
+        tech: ['React 19', 'TypeScript', 'Vite', 'Supabase', 'PostgreSQL', 'Edge Functions', 'Framer Motion', 'Lenis', 'PWA']
     },
     'LevelOne DSA': {
-        problem: 'Students needed a single, structured place to learn DSA with practice + progress tracking.',
-        approach: ['Designed a clear course structure with curated lectures + problems.', 'Used Supabase for auth/data and fast iteration.', 'Optimized UX for daily practice (quick resume + progress).'],
-        results: ['Used by 100+ students.', 'Faster onboarding with structured curriculum.'],
-        tech: ['Next.js', 'Tailwind', 'Supabase']
+        problem: 'Traditional DSA courses and video playlists suffer from passive watching, tutorial hell, and <10% completion rates without active coding accountability.',
+        approach: [
+            'Engineered a phase-gated DSA curriculum requiring verified problem submissions, test suite passes, and GitHub tracking before unlocking advanced algorithmic modules.',
+            'Integrated a context-aware AI tutor powered by Google Gemini API and Groq SDK to provide hint-based Socratic debugging without spoon-feeding answers.',
+            'Built 30-second heartbeat activity telemetry to monitor real student problem-solving time and code editor engagement.',
+            'Architected automated role-based cohort gating, end-to-end Razorpay checkout, and an organic referral system.'
+        ],
+        results: [
+            '350+ Enrolled active students with high completion rates.',
+            'Automated role-based access control and verified milestone progression.',
+            'Live telemetry with continuous real-time learner engagement feedback.'
+        ],
+        tech: ['Next.js 15', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Google Gemini API', 'Groq SDK', 'Razorpay', 'Framer Motion', 'Firebase PWA']
     },
     'Acropolis Attendance Management System': {
-        problem: 'Manual attendance marking caused errors and slow reporting.',
-        approach: ['Built role-based access for faculty/admin.', 'Added real-time attendance workflow with audit-friendly data.', 'Automated reporting to reduce admin overhead.'],
-        results: ['Approved and live for 3rd Year IT department.', 'Reduced administrative errors.'],
-        tech: ['React', 'Node.js', 'Firebase']
+        problem: 'Manual attendance roll calls and physical paper registers caused delays, audit inaccuracies, and labor-intensive reporting for faculty.',
+        approach: [
+            'Built strict role-based access control (RBAC) separating faculty, student coordinators, and department administrators.',
+            'Engineered a real-time attendance logging workflow with instant daily audit summaries and automated reporting.',
+            'Optimized data synchronization to prevent record tampering and administrative discrepancy.'
+        ],
+        results: [
+            'Approved and deployed live in production across both the IT Department and CSIT Department.',
+            'Eliminated physical attendance log inaccuracies and accelerated weekly attendance audit cycles.',
+            'Awarded an official Certificate of Appreciation by Dr. Prashant Lakkadwala (HOD - IT).'
+        ],
+        tech: ['React', 'Node.js', 'Firebase', 'Role-Based Auth']
+    },
+    'GoCanteen': {
+        problem: 'University food courts and campus canteens experience massive bursts of footfall during short 30-minute lunch breaks. Manual ordering counters create long queues, order delays, cash-handling discrepancies, and stock-outs where canteens accidentally oversell fast-moving items.',
+        approach: [
+            'Tri-Portal Architecture: Engineered a unified system with role-based routing (PortalGuard) separating Student/Customer (menu browsing, discount coupons, cart), Kitchen Staff (live Kitchen Display System & POS), and Admin (inventory, sales analytics, multi-outlet management).',
+            'Instant Mobile Payments: Integrated Razorpay with native mobile UPI intents (Google Pay, PhonePe, Paytm) and automated platform fee separation for frictionless mobile checkout.',
+            'Real-Time Data Pipeline: Leveraged Supabase (PostgreSQL with Row Level Security and Realtime subscriptions) to broadcast orders directly to the kitchen display screen without polling.',
+            'Mobile-First UX: Built as a responsive PWA using React 19, Framer Motion, and Lenis smooth scrolling with persistent query caching (@tanstack/react-query-persist-client) to prevent mobile GPU stutter during rapid scroll.'
+        ],
+        results: [
+            'Turned physical canteen counters into exclusive grab-and-go pickup stations, clearing the lunch break bottleneck.',
+            'Eliminated paper ticket errors and counter confusion through digital KDS order tracking.',
+            'Provided canteen managers with complete real-time inventory control and revenue visibility with zero platform commission.'
+        ],
+        tech: ['React 19', 'Supabase', 'Tailwind CSS', 'Razorpay', 'PostgreSQL RLS', 'Framer Motion', 'Lenis', 'PWA']
     },
     'Go Canteen': {
-        problem: 'College canteens faced long physical queues, manual order processing delays, and lack of real-time tracking.',
-        approach: ['Developed a real-time, express campus food ordering PWA.', 'Built a Kitchen Display System (KDS) for staff and comprehensive admin portals.', 'Implemented live token tracking for students.'],
-        results: ['Streamlined college canteen operations.', 'Eliminated physical queues and significantly increased order processing efficiency through automated real-time synchronization.'],
-        tech: ['React', 'Tailwind CSS', 'Supabase', 'PWA']
+        problem: 'University food courts and campus canteens experience massive bursts of footfall during short 30-minute lunch breaks. Manual ordering counters create long queues, order delays, cash-handling discrepancies, and stock-outs where canteens accidentally oversell fast-moving items.',
+        approach: [
+            'Tri-Portal Architecture: Engineered a unified system with role-based routing (PortalGuard) separating Student/Customer, Kitchen Staff (live KDS & POS), and Admin (inventory, analytics, multi-outlet management).',
+            'Instant Mobile Payments: Integrated Razorpay with native mobile UPI intents (Google Pay, PhonePe, Paytm) and automated platform fee separation.',
+            'Real-Time Data Pipeline: Leveraged Supabase (PostgreSQL with Row Level Security and Realtime subscriptions) to broadcast orders directly to the kitchen display screen without polling.',
+            'Mobile-First UX: Built as a responsive PWA using React 19, Framer Motion, and Lenis smooth scrolling with persistent query caching.'
+        ],
+        results: [
+            'Turned physical canteen counters into exclusive grab-and-go pickup stations, clearing the lunch break bottleneck.',
+            'Eliminated paper ticket errors and counter confusion through digital KDS order tracking.',
+            'Provided canteen managers with complete real-time inventory control and revenue visibility with zero platform commission.'
+        ],
+        tech: ['React 19', 'Supabase', 'Tailwind CSS', 'Razorpay', 'PostgreSQL RLS', 'Framer Motion', 'Lenis', 'PWA']
+    },
+    'LevelOne Dev': {
+        problem: 'Traditional online courses suffer from <10% completion rates and passive skimming without real coding accountability.',
+        approach: [
+            'Engineered a phase-gated learning platform requiring verified video watch time (≥90%) and GitHub submission versioning before unlocking content.',
+            'Integrated a context-aware AI tutor powered by Google Gemini API and Groq SDK for instant, personalized doubt resolution.',
+            'Built 30-second heartbeat activity telemetry to track real student engagement and progress analytics.',
+            'Architected automated role-based access gating, end-to-end Razorpay checkout, and an organic referral system.'
+        ],
+        results: [
+            '350+ Enrolled active students with high completion rates.',
+            'Automated role-based access control and verified milestone progression.',
+            'Live telemetry with continuous real-time learner engagement feedback.'
+        ],
+        tech: ['Next.js 15', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Google Gemini API', 'Groq SDK', 'Razorpay', 'Framer Motion', 'Firebase PWA']
     },
     'LevelOne WebDev': {
-        problem: 'Learners needed project-based modules aligned with industry-ready standards.',
-        approach: ['Created interactive modules and project roadmaps.', 'Kept content editable and scalable.', 'Focused on outcomes and practical builds.'],
-        results: ['Integrated into LevelOne suite for placement roadmap.'],
-        tech: ['Next.js', 'Markdown', 'Framer Motion']
+        problem: 'Traditional online courses suffer from <10% completion rates and passive skimming without real coding accountability.',
+        approach: [
+            'Engineered a phase-gated learning platform requiring verified video watch time (≥90%) and GitHub submission versioning before unlocking content.',
+            'Integrated a context-aware AI tutor powered by Google Gemini API and Groq SDK for instant, personalized doubt resolution.',
+            'Built 30-second heartbeat activity telemetry to track real student engagement and progress analytics.',
+            'Architected automated role-based access gating, end-to-end Razorpay checkout, and an organic referral system.'
+        ],
+        results: [
+            '350+ Enrolled active students with high completion rates.',
+            'Automated role-based access control and verified milestone progression.',
+            'Live telemetry with continuous real-time learner engagement feedback.'
+        ],
+        tech: ['Next.js 15', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Google Gemini API', 'Groq SDK', 'Razorpay', 'Framer Motion', 'Firebase PWA']
     },
     'GapShap AI': {
         problem: 'Showcase low-latency AI chat with persona-based experiences.',
@@ -506,6 +598,19 @@ document.addEventListener('click', (e) => {
         }
         openCaseModal(title);
         return;
+    }
+
+    // Mobile compact card: tapping anywhere on a project card navigates directly to its dedicated subpage
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        const card = e.target && e.target.closest ? e.target.closest('#projects .projects-grid > .project-card') : null;
+        if (card) {
+            const subpage = card.dataset.subpage || (card.querySelector('.mobile-project-card-link') ? card.querySelector('.mobile-project-card-link').getAttribute('href') : null);
+            if (subpage) {
+                window.location.href = subpage;
+                return;
+            }
+        }
     }
 
     const closeBtn = e.target && e.target.closest ? e.target.closest('[data-close-modal]') : null;

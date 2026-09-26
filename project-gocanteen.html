@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoCanteen — Full-Stack Campus FoodTech PWA | Aayush Soni</title>
+    <meta name="description" content="Full-stack campus food pre-ordering PWA & real-time KDS eliminating lunch rush queues with direct UPI checkout.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style_v2.css">
+    <link rel="stylesheet" href="./project_detail.css">
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico">
+    <script src="https://unpkg.com/lucide@0.469.0"></script>
+</head>
+<body>
+    <div class="subpage-ambient">
+        <div class="subpage-blob b1"></div>
+        <div class="subpage-blob b2"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="subpage-nav">
+        <div class="subpage-nav-inner">
+            <a href="./index.html#projects" class="subpage-back-btn">
+                <i data-lucide="arrow-left"></i>
+                <span>Back to Portfolio</span>
+            </a>
+            <div class="subpage-nav-title">
+                <img src="./assets/img/logo_gocanteen.png" alt="GoCanteen" class="subpage-nav-logo">
+                <span>GoCanteen</span>
+            </div>
+            <div class="subpage-nav-actions">
+                <a href="https://gocanteen.in" target="_blank" rel="noopener noreferrer" class="btn-nav-action">
+                    <span>Visit Live</span>
+                    <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="subpage-container">
+        <!-- Breadcrumb -->
+        <nav class="subpage-breadcrumb" aria-label="Breadcrumb">
+            <a href="./index.html">Home</a>
+            <span class="sep">/</span>
+            <a href="./index.html#projects">Projects</a>
+            <span class="sep">/</span>
+            <span>GoCanteen</span>
+        </nav>
+
+        <!-- Project Hero -->
+        <section class="project-hero">
+            <div class="project-hero-badge-row">
+                <span class="hero-pill"><i data-lucide="utensils"></i> Campus FoodTech PWA</span>
+                <span class="hero-pill pill-active"><span class="pulse-dot"></span> Live in Production</span>
+                <span class="hero-pill"><i data-lucide="monitor"></i> Real-Time KDS</span>
+            </div>
+
+            <div class="project-hero-main">
+                <img src="./assets/img/logo_gocanteen.png" alt="GoCanteen Logo" class="project-hero-logo">
+                <div class="project-hero-title-group">
+                    <h1>GoCanteen</h1>
+                    <div class="project-hero-subtitle">Full-Stack Campus Food Pre-Ordering PWA & Real-Time Kitchen Display System</div>
+                </div>
+            </div>
+
+            <p class="project-hero-tagline">
+                “Full-stack campus food pre-ordering PWA & real-time KDS eliminating lunch rush queues with direct UPI checkout, instant pickup tokens, and live kitchen synchronization.”
+            </p>
+
+            <div class="project-hero-actions">
+                <a href="https://gocanteen.in" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                    <i data-lucide="external-link"></i>
+                    <span>Visit Live Platform</span>
+                </a>
+                <a href="#case-study" class="btn-secondary">
+                    <i data-lucide="book-open"></i>
+                    <span>Read Architecture Case Study</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Impact Strip -->
+        <section class="impact-strip" aria-label="Key Project Metrics">
+            <div class="impact-strip-card">
+                <strong>Zero-Wait</strong>
+                <span>Queue Pre-Ordering & Digital Pickup Tokens</span>
+            </div>
+            <div class="impact-strip-card">
+                <strong>Sub-Second</strong>
+                <span>Kitchen Display System Sync via Supabase Websockets</span>
+            </div>
+            <div class="impact-strip-card">
+                <strong>0% Commission</strong>
+                <span>Direct Campus Channel Empowering Canteen Concessionaires</span>
+            </div>
+            <div class="impact-strip-card">
+                <strong>Instant UPI</strong>
+                <span>Frictionless Mobile Razorpay Checkout & Auto Reconciliation</span>
+            </div>
+        </section>
+
+        <!-- Media Showcase Frame -->
+        <section class="media-showcase-wrap" aria-label="Platform Preview">
+            <div class="browser-mockup">
+                <div class="browser-bar">
+                    <div class="browser-dot dot-red"></div>
+                    <div class="browser-dot dot-yellow"></div>
+                    <div class="browser-dot dot-green"></div>
+                    <div class="browser-url-pill">
+                        <i data-lucide="lock" style="width: 12px; height: 12px;"></i>
+                        <span>https://gocanteen.in</span>
+                    </div>
+                </div>
+                <div class="browser-viewport">
+                    <img src="./assets/img/gocanteen_preview.webp" alt="GoCanteen Digital Platform Interface" loading="lazy">
+                </div>
+                <div class="media-caption-bar">
+                    <span>Pre-ordering PWA with live order status and kitchen terminal synchronization</span>
+                    <span>React 19 • Supabase Realtime • Razorpay UPI</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Study Details -->
+        <section id="case-study" class="case-study-grid">
+            <!-- 01 The Problem -->
+            <div class="case-section-card problem-box">
+                <div class="section-label-header">
+                    <span class="section-num-pill">01</span>
+                    <h2>The Challenge & Business Context</h2>
+                </div>
+                <p>
+                    College campus canteens endure extreme lunch rush congestion where hundreds of students scramble to order, pay, and collect food in narrow 30-minute intervals. Students waste precious break time standing in physical queues, while canteen kitchen staff face chaotic handwritten slips, order mix-ups, stock-outs, and payment tracking disputes.
+                </p>
+                <p style="margin-top: 1rem;">
+                    Third-party aggregator apps (Zomato/Swiggy) cannot serve this market due to high commission fees (20-30%), delivery fees unsuited for campus walking distances, and inability to handle instant token-based counter pickups.
+                </p>
+            </div>
+
+            <!-- 02 Engineering Approach -->
+            <div class="case-section-card">
+                <div class="section-label-header">
+                    <span class="section-num-pill">02</span>
+                    <h2>Engineering Architecture & Solution</h2>
+                </div>
+                <div class="approach-list">
+                    <div class="approach-item">
+                        <div class="approach-icon-wrap"><i data-lucide="smartphone"></i></div>
+                        <div class="approach-item-body">
+                            <h3>Progressive Web App (PWA) with Offline Resiliency</h3>
+                            <p>Built an installable, mobile-first PWA with instant loading, dynamic menu browsing, and persistent cart caching, allowing students to browse even in low-connectivity areas of campus.</p>
+                        </div>
+                    </div>
+                    <div class="approach-item">
+                        <div class="approach-icon-wrap"><i data-lucide="monitor"></i></div>
+                        <div class="approach-item-body">
+                            <h3>Real-Time Kitchen Display System (KDS)</h3>
+                            <p>Engineered a live order-station screen for kitchen staff using Supabase Realtime websocket subscriptions, automatically moving orders through "Received → Preparing → Ready for Pickup" with auditory chime alerts.</p>
+                        </div>
+                    </div>
+                    <div class="approach-item">
+                        <div class="approach-icon-wrap"><i data-lucide="credit-card"></i></div>
+                        <div class="approach-item-body">
+                            <h3>Instant UPI & Unique Token Generation</h3>
+                            <p>Integrated frictionless Razorpay UPI intents. Once paid, the system instantly assigns a unique pickup token number displayed on both the student's phone and kitchen monitor, eliminating counterfeit order claims.</p>
+                        </div>
+                    </div>
+                    <div class="approach-item">
+                        <div class="approach-icon-wrap"><i data-lucide="sliders"></i></div>
+                        <div class="approach-item-body">
+                            <h3>Staff Admin & Inventory Management</h3>
+                            <p>Developed instant item toggle (In Stock / Out of Stock), price overrides, sales telemetry, and daily revenue reporting for canteen concessionaires with zero technical onboarding required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 03 Measurable Results -->
+            <div class="case-section-card">
+                <div class="section-label-header">
+                    <span class="section-num-pill">03</span>
+                    <h2>Quantified Results & Impact</h2>
+                </div>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-check"><i data-lucide="check"></i></div>
+                        <p><strong>Elimination of Lunch Queues:</strong> Students pre-order from lecture halls and pick up items directly when notified, eliminating 15-minute wait lines.</p>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-check"><i data-lucide="check"></i></div>
+                        <p><strong>Sub-Second KDS Order Dispatch:</strong> Zero paper slips; orders sync across customer phones and kitchen terminals in real time.</p>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-check"><i data-lucide="check"></i></div>
+                        <p><strong>High Vendor Adoption:</strong> Intuitive one-tap interface trained non-technical canteen kitchen staff in under 15 minutes.</p>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-check"><i data-lucide="check"></i></div>
+                        <p><strong>100% Direct Channel:</strong> 0% middleman commission preserves thin margin economics for campus vendors.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 04 Tech Stack -->
+            <div class="case-section-card">
+                <div class="section-label-header">
+                    <span class="section-num-pill">04</span>
+                    <h2>Technologies & Tools Used</h2>
+                </div>
+                <div class="tech-cloud">
+                    <span class="tech-cloud-pill"><i data-lucide="code"></i> React 19</span>
+                    <span class="tech-cloud-pill"><i data-lucide="file-code"></i> TypeScript</span>
+                    <span class="tech-cloud-pill"><i data-lucide="zap"></i> Vite</span>
+                    <span class="tech-cloud-pill"><i data-lucide="radio"></i> Supabase Realtime</span>
+                    <span class="tech-cloud-pill"><i data-lucide="database"></i> PostgreSQL</span>
+                    <span class="tech-cloud-pill"><i data-lucide="credit-card"></i> Razorpay UPI</span>
+                    <span class="tech-cloud-pill"><i data-lucide="smartphone"></i> Service Worker PWA</span>
+                    <span class="tech-cloud-pill"><i data-lucide="bell"></i> Web Push Notifications</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Subpage Footer Navigation -->
+        <div class="project-subpage-nav-footer">
+            <a href="./project-acroams.html" class="next-project-card">
+                <div class="next-meta">
+                    <span>Next Project</span>
+                    <h3>Acropolis Attendance Management System (AcroAMS)</h3>
+                </div>
+                <div class="next-arrow">
+                    <i data-lucide="arrow-right"></i>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer class="subpage-footer">
+        <p>&copy; 2026 Aayush Soni. Designed & Built with Precision. <a href="./index.html#contact">Get in touch</a></p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
